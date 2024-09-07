@@ -1,0 +1,98 @@
+use crate::content::PostData;
+use itertools::Itertools;
+use leptos::prelude::*;
+use std::collections::HashMap;
+
+#[component]
+fn PostCover(href: String, src: String) -> impl IntoView {
+    view! {
+        <a href=href>
+            <img
+                class="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
+                src=src
+                // TODO
+                alt=""
+                width="720"
+                height="1280"
+            />
+            <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+
+        </a>
+    }
+}
+
+
+#[component]
+fn TagLabel(tag: String) -> impl IntoView {
+    let href = format!("/tags/{}", tag.clone());
+    view! {
+        <a
+            class="inline-flex items-center gap-x-1.5 rounded-full px-2 py-1 text-xs font-medium text-gray-900 ring-1 ring-inset ring-gray-200"
+            href=href
+        >
+            {tag}
+        </a>
+    }
+}
+
+
+#[component]
+fn PostPreview(id: String, post: PostData) -> impl IntoView {
+    view! {
+        <article class="relative isolate flex flex-col gap-8 lg:flex-row">
+            <div class="relative aspect-[16/9] lg:w-64 lg:shrink-0">
+                <PostCover href=format!("/posts/{}", id.clone()) src=post.metadata.cover/>
+            </div>
+            <div>
+                <div class="flex items-center gap-x-4 text-xs">
+                    <p>
+                        {chrono::DateTime::parse_from_rfc3339(&post.metadata.date)
+                            .unwrap()
+                            .format("%e %b %Y")
+                            .to_string()}
+                    </p>
+                    <For
+                        each=move || post.metadata.tags.clone().into_iter()
+                        key=|tag| tag.clone()
+                        let:tag
+                    >
+                        <TagLabel tag=tag.clone()/>
+                    </For>
+                </div>
+                <div class="group relative max-w-xl">
+                    <h2 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                        <a href=format!("/posts/{}", id.clone())>
+                            <span class="absolute inset-0"></span>
+                            {post.metadata.title}
+                        </a>
+                    </h2>
+                    <div
+                        class="prose mt-5 text-sm leading-6 text-gray-600"
+                        inner_html=post.metadata.summary
+                    ></div>
+                </div>
+            </div>
+        </article>
+    }
+}
+
+
+
+#[component]
+pub fn PostList(posts: HashMap<String, PostData>) -> impl IntoView {
+    view! {
+        <div class="mx-auto max-w-3xl px-6 lg:px-8">
+            <div class="mt-16 space-y-10 lg:mt-10 lg:space-y-10">
+                <For
+                    each=move || posts.clone().into_iter().sorted_by(|(_, a), (_, b)| b.metadata.date.cmp(&a.metadata.date))
+                    key=|post| post.0.clone()
+                    let:post
+                >
+                    <li class="col-span-1 rounded-md shadow-sm">
+                        <PostPreview id=post.0.clone() post=post.1.clone()/>
+                    </li>
+                </For>
+            </div>
+        </div>
+    }
+}
