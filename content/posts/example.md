@@ -6,4 +6,12 @@ tags:
 status: published
 ---
 
-my first post
+# *H1* { #id1 }
+
+## **H2** {#id2}
+
+### *H3* {#id3}
+
+#### ~~H4~~ {#id4}
+
+##### [text](uri) {#id5}

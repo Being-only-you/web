@@ -1,6 +1,6 @@
 use gray_matter::engine::YAML;
 use gray_matter::Matter;
-use pulldown_cmark::{html, Options, Parser};
+use pulldown_cmark::{html, Options, Parser, Tag, Event};
 use serde::Deserialize;
 use std::collections::HashMap;
 
@@ -40,14 +40,72 @@ pub struct PostData {
     pub content: String,
 }
 
-fn markdown_to_html(content: String) -> String {
+pub fn markdown_to_html(content: String) -> String {
     let mut options = Options::empty();
-    options.insert(Options::ENABLE_TABLES);
-    options.insert(Options::ENABLE_FOOTNOTES);
-    options.insert(Options::ENABLE_STRIKETHROUGH);
-    options.insert(Options::ENABLE_TASKLISTS);
+    options.insert(Options::all());
 
-    let parser = Parser::new_ext(&content, options);
+    let parser = Parser::new_ext(&content, options).map(|event| {
+        match &event {
+            Event::Start(tag) => match tag {
+                Tag::HtmlBlock => println!("HtmlBlock"),
+                Tag::Heading {
+                    level,
+                    id,
+                    classes,
+                    attrs,
+                } => println!(
+                    "Heading heading_level: {} fragment identifier: {:?} classes: {:?} attrs: {:?}",
+                    level, id, classes, attrs
+                ),
+                Tag::Paragraph => println!("Paragraph"),
+                Tag::List(ordered_list_first_item_number) => println!(
+                    "List ordered_list_first_item_number: {:?}",
+                    ordered_list_first_item_number
+                ),
+                Tag::DefinitionList => println!("Definition list"),
+                Tag::DefinitionListTitle => println!("Definition title (definition list item)"),
+                Tag::DefinitionListDefinition => println!("Definition (definition list item)"),
+                Tag::Item => println!("Item (this is a list item)"),
+                Tag::Emphasis => println!("Emphasis (this is a span tag)"),
+                Tag::Strong => println!("Strong (this is a span tag)"),
+                Tag::Strikethrough => println!("Strikethrough (this is a span tag)"),
+                Tag::BlockQuote(kind) => println!("BlockQuote ({:?})", kind),
+                Tag::CodeBlock(code_block_kind) => {
+                    println!("CodeBlock code_block_kind: {:?}", code_block_kind)
+                }
+                Tag::Link {
+                    link_type,
+                    dest_url,
+                    title,
+                    id,
+                } => println!(
+                    "Link link_type: {:?} url: {} title: {} id: {}",
+                    link_type, dest_url, title, id
+                ),
+                Tag::Image {
+                    link_type,
+                    dest_url,
+                    title,
+                    id,
+                } => println!(
+                    "Image link_type: {:?} url: {} title: {} id: {}",
+                    link_type, dest_url, title, id
+                ),
+                Tag::Table(column_text_alignment_list) => println!(
+                    "Table column_text_alignment_list: {:?}",
+                    column_text_alignment_list
+                ),
+                Tag::TableHead => println!("TableHead (contains TableRow tags"),
+                Tag::TableRow => println!("TableRow (contains TableCell tags)"),
+                Tag::TableCell => println!("TableCell (contains inline tags)"),
+                Tag::FootnoteDefinition(label) => println!("FootnoteDefinition label: {}", label),
+                Tag::MetadataBlock(kind) => println!("MetadataBlock: {:?}", kind),
+            },
+            _ => (),
+        };
+        event
+    });
+
     let mut html = String::new();
     html::push_html(&mut html, parser);
 

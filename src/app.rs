@@ -34,9 +34,9 @@ pub fn App() -> impl IntoView {
                     <Route path=StaticSegment("") view=Home/>
                     <Route path=StaticSegment("about") view=About/>
                     <Route path=StaticSegment("posts") view=Posts/>
-                    <Route path=(StaticSegment("posts"), ParamSegment("id")) view=Posts/>
+                    <Route path=(StaticSegment("posts"), ParamSegment("id")) view=Post/>
                     <Route path=StaticSegment("tags") view=Tags/>
-                    <Route path=(StaticSegment("tags"), ParamSegment("id")) view=Tags/>
+                    <Route path=(StaticSegment("tags"), ParamSegment("id")) view=Tag/>
                     <Route path=WildcardSegment("any") view=NotFound/>
                 </Routes>
             </main>

@@ -1,4 +1,5 @@
 use crate::components::post_content::*;
+use crate::content::markdown_to_html;
 use leptos::*;
 use leptos::prelude::*;
 
@@ -9,7 +10,7 @@ pub fn About() -> impl IntoView {
             <h1 class="mt-2 py-20 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                 "About"
             </h1>
-            <PostContent content=include_str!("../../content/about.md").to_string()/>
+            <PostContent content=markdown_to_html(include_str!("../../content/about.md").to_string())/>
         </div>
     }
 }
