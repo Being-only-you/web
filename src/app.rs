@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use leptos_meta::{provide_meta_context, Stylesheet, Title};
+use leptos_meta::{provide_meta_context, Stylesheet, Title, Script};
 use leptos_router::{
     components::{Route, Router, Routes},
     StaticSegment, ParamSegment
@@ -20,49 +20,47 @@ pub fn App() -> impl IntoView {
     view! {
         <Stylesheet id="leptos" href="/pkg/beu.css"/>
         <Title text="Being You - Be Yourself, Uncensored"/>
+        <Script type_="importmap">
+            "{
+                imports: {
+                three: 'https://cdn.jsdelivr.net/npm/three/build/three.module.js',
+                'three/addons/': 'https://cdn.jsdelivr.net/npm/three/examples/jsm/'
+                }
+            }"
+        </Script>
 
-        <div class="flex flex-col min-h-screen bg-purple-darker text-white">
-            <Router>
+        <Router>
+            <main class="flex flex-col min-h-screen bg-purple-darker text-white">
                 <Header/>
-                <main class="flex-grow">
-                    <Routes fallback=move || {
-                        view! { <NotFound /> }
-                    }>
-                        <Route path=StaticSegment("") view=Home/>
-                        <Route path=StaticSegment("about") view=About/>
-                        <Route path=StaticSegment("posts") view=Posts/>
-                        <Route path=(StaticSegment("posts"), ParamSegment("id")) view=Post/>
-                        <Route path=StaticSegment("tags") view=Tags/>
-                        <Route path=(StaticSegment("tags"), ParamSegment("id")) view=Tag/>
-                    </Routes>
-                </main>
+                <Routes fallback=move || {
+                    view! { <NotFound /> }
+                }>
+                    <Route path=StaticSegment("") view=Home/>
+                    <Route path=StaticSegment("about") view=About/>
+                    <Route path=StaticSegment("posts") view=Posts/>
+                    <Route path=(StaticSegment("posts"), ParamSegment("id")) view=Post/>
+                    <Route path=StaticSegment("tags") view=Tags/>
+                    <Route path=(StaticSegment("tags"), ParamSegment("id")) view=Tag/>
+                </Routes>
                 <Footer/>
-            </Router>
-        </div>
+            </main>
+        </Router>
     }
 }
 
 #[component]
 fn NotFound() -> impl IntoView {
-    // set an HTTP status code 404
-    // this is feature gated because it can only be done during
-    // initial server-side rendering
-    // if you navigate to the 404 page subsequently, the status
-    // code will not be set because there is not a new HTTP request
-    // to the server
     #[cfg(feature = "ssr")]
     {
-        // this can be done inline because it's synchronous
-        // if it were async, we'd use a server function
         let resp = expect_context::<leptos_actix::ResponseOptions>();
         resp.set_status(actix_web::http::StatusCode::NOT_FOUND);
     }
 
     view! {
         <div class="container mx-auto px-4 py-16 text-center">
-            <h1 class="text-4xl font-bold mb-4 animate-bounce">404 - Page Not Found</h1>
-            <p class="text-xl mb-8 animate-fadeIn">Oops! The page you are looking for does not exist.</p>
-            <a href="/" class="btn btn-primary animate-pulse">Go back to home</a>
+            <h1 class="text-4xl font-bold mb-4 animate-float">"404 - Page Not Found"</h1>
+            <p class="text-xl mb-8 animate-float-delayed">"Oops! The page you're looking for doesn't exist."</p>
+            <a href="/" class="btn btn-primary animate-pulse">"Go back to home"</a>
         </div>
     }
 }

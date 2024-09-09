@@ -25,6 +25,8 @@ module.exports = {
         },
         orange: '#F7A029',
         blue: '#325BE0',
+        green: '#34D399',
+        teal: '#14B8A6',
         gray: {
           DEFAULT: '#808080',
           light: '#D4D4D4',
@@ -32,14 +34,16 @@ module.exports = {
         },
       },
       animation: {
+        float: 'float 6s ease-in-out infinite',
+        'float-delayed': 'float 6s ease-in-out 2s infinite',
         fadeIn: 'fadeIn 1s ease-in',
         slideUp: 'slideUp 0.5s ease-out',
-        bounce: 'bounce 1s infinite',
-        pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        ping: 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
-        spin: 'spin 1s linear infinite',
       },
       keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
@@ -47,12 +51,6 @@ module.exports = {
         slideUp: {
           '0%': { transform: 'translateY(100px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
-        ping: {
-          '75%, 100%': { transform: 'scale(2)', opacity: '0' },
-        },
-        spin: {
-          'to': { transform: 'rotate(360deg)' },
         },
       },
     },

@@ -2,6 +2,7 @@ use leptos::*;
 use leptos::prelude::*;
 
 use crate::components::post_list::*;
+use crate::components::globe::Globe;
 use crate::content::{get_all_posts, PostStatus, StatusFilter};
 
 #[component]
@@ -13,78 +14,97 @@ pub fn Home() -> impl IntoView {
     };
 
     view! {
-        <div class="min-h-screen bg-purple-darker text-white">
-            <section class="py-20 animate-fadeIn">
-                <div class="container text-center">
-                    <h1 class="text-6xl font-bold mb-4 animate-bounce">Being You</h1>
-                    <p class="text-3xl font-light text-purple-light animate-pulse">The new app to be you</p>
-                    <p class="text-xl mt-6 max-w-2xl mx-auto text-gray-light animate-fadeIn">
-                        "Never stop being you! Don't self-censor in fear of losing out."
-                    </p>
+        <div class="min-h-screen bg-gradient-to-b from-purple-darker to-purple-dark text-white overflow-hidden">
+            // Dynamic Header with Interactive Globe
+            <header class="relative h-screen flex items-center justify-center overflow-hidden">
+                <Globe/>
+                <div class="relative z-10 text-center">
+                    <h1 class="text-7xl font-bold mb-4 animate-float">Being You</h1>
+                    <p class="text-3xl font-light animate-float-delayed">The new way to be you</p>
                 </div>
-            </section>
+            </header>
 
-            <section class="py-20 bg-purple animate-slideUp">
-                <div class="container">
-                    <h2 class="text-4xl font-bold mb-8 text-center animate-bounce">About Being You</h2>
-                    <div class="flex flex-col md:flex-row items-center justify-between">
-                        <div class="md:w-1/2 mb-8 md:mb-0 animate-fadeIn">
-                            <p class="text-xl mb-6 text-purple-light">
-                                Being You is a revolutionary social media platform that combines uncensored expression with professional networking. We believe in your right to be yourself, both in your personal life and your career.
-                            </p>
-                            <p class="text-xl text-purple-light">
-                                Our platform is designed to empower you in both your personal and professional life.
-                            </p>
-                        </div>
-                        <div class="md:w-1/2 flex justify-center">
-                            <div class="w-64 h-64 bg-red rounded-full flex items-center justify-center text-2xl font-bold animate-ping">
-                                "You are the customer, not the product"
+            // Main Content
+            <main>
+                // About Section with Curved Overlay
+                <section class="py-32 relative overflow-hidden">
+                    <div class="container mx-auto px-4 relative z-20">
+                        <h2 class="text-5xl font-bold mb-8 text-center animate-float">About Being You</h2>
+                        <p class="text-xl text-center max-w-3xl mx-auto mb-12 animate-float-delayed">
+                            Being You is a revolutionary platform that combines uncensored social networking with professional growth opportunities. Express yourself freely and advance your career, all in one place.
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-8">
+                            <div class="w-64 h-64 bg-gradient-to-br from-red to-orange rounded-full flex items-center justify-center text-2xl font-bold animate-float shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                                "Zero ads on personal profiles"
+                            </div>
+                            <div class="w-64 h-64 bg-gradient-to-br from-blue to-purple rounded-full flex items-center justify-center text-2xl font-bold animate-float-delayed shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                                "Promoted job listings on professional profiles"
+                            </div>
+                            <div class="w-64 h-64 bg-gradient-to-br from-green to-teal rounded-full flex items-center justify-center text-2xl font-bold animate-float shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                                "Content creator revenue sharing"
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                    <div class="absolute bottom-0 left-0 w-full h-1/2 bg-purple z-10 transform -skew-y-6"></div>
+                </section>
 
-            <section class="py-20 animate-fadeIn">
-                <div class="container">
-                    <h2 class="text-4xl font-bold mb-8 text-center animate-pulse">Our Unique Features</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="bg-purple p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 animate-fadeIn">
-                            <h3 class="text-2xl font-bold mb-4 text-orange">Uncensored Social Networking</h3> 
-                            <p class="text-purple-light">Express yourself freely without fear of AI-driven censorship. Your voice matters, and we&apos;re here to amplify it.</p>
-                        </div>
-                        <div class="bg-purple p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 animate-fadeIn delay-100">
-                            <h3 class="text-2xl font-bold mb-4 text-orange">Professional Branding</h3>
-                            <p class="text-purple-light">Showcase your skills, portfolio, and achievements. Stand out in the competitive job market with our powerful branding tools.</p>
-                        </div>
-                        <div class="bg-purple p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 animate-fadeIn delay-200">
-                            <h3 class="text-2xl font-bold mb-4 text-orange">Job Application Platform</h3>
-                            <p class="text-purple-light">Discover exciting career opportunities and apply directly through our integrated job board. Your next big break is just a click away.</p>
-                        </div>
-                        <div class="bg-purple p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 animate-fadeIn delay-300">
-                            <h3 class="text-2xl font-bold mb-4 text-orange">Freelance Marketplace</h3>
-                            <p class="text-purple-light">Connect with clients, showcase your services, and grow your freelance business. Being You is your partner in professional success.</p>
+                // Features Section with Overlapping Cards
+                <section class="py-32 bg-purple relative overflow-hidden">
+                    <div class="container mx-auto px-4 relative z-10">
+                        <h2 class="text-5xl font-bold mb-16 text-center animate-float">Our Unique Features</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 -mt-16">
+                            <div class="bg-gradient-to-br from-purple-light to-purple p-8 rounded-3xl shadow-xl transition-all duration-500 ease-in-out transform hover:scale-105 hover:-rotate-2 animate-float">
+                                <h3 class="text-3xl font-bold mb-4 text-orange">Uncensored Social Networking</h3>
+                                <p class="text-xl">Express yourself freely without fear of AI-driven censorship. Your voice matters, and we&rsquo;re here to amplify it.</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-purple-light to-purple p-8 rounded-3xl shadow-xl transition-all duration-500 ease-in-out transform hover:scale-105 hover:rotate-2 animate-float-delayed mt-16">
+                                <h3 class="text-3xl font-bold mb-4 text-orange">Professional Growth</h3>
+                                <p class="text-xl">Showcase your skills, apply for jobs, and connect with clients. Your career advancement starts here.</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-purple-light to-purple p-8 rounded-3xl shadow-xl transition-all duration-500 ease-in-out transform hover:scale-105 hover:-rotate-2 animate-float">
+                                <h3 class="text-3xl font-bold mb-4 text-orange">Content Creator Support</h3>
+                                <p class="text-xl">Benefit from our revenue sharing program. Your creativity deserves recognition and rewards.</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-purple-light to-purple p-8 rounded-3xl shadow-xl transition-all duration-500 ease-in-out transform hover:scale-105 hover:rotate-2 animate-float-delayed mt-16">
+                                <h3 class="text-3xl font-bold mb-4 text-orange">Secure Transactions</h3>
+                                <p class="text-xl">Our escrow service ensures safe and transparent transactions for all professional engagements.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                    <div class="absolute top-0 left-0 w-full h-1/2 bg-purple-darker z-0 transform skew-y-6"></div>
+                    <div class="absolute bottom-0 left-0 w-full h-1/2 bg-purple-darker z-0 transform -skew-y-6"></div>
+                </section>
 
-            <section class="py-20 bg-purple animate-slideUp">
-                <div class="container text-center">
-                    <h2 class="text-4xl font-bold mb-8 animate-bounce">Join Being You Today</h2>
-                    <p class="text-xl mb-8 text-purple-light animate-pulse">Start being your true self while advancing your career!</p>
-                    <button class="btn btn-primary text-xl animate-pulse hover:animate-bounce">
-                        "Get Started Now"
-                    </button>
-                </div>
-            </section>
+                // Call to Action Section with Curved Background
+                <section class="py-32 relative overflow-hidden bg-gradient-to-b from-purple-darker to-purple">
+                    <div class="container mx-auto px-4 text-center relative z-10">
+                        <h2 class="text-5xl font-bold mb-8 animate-float">Join Being You Today</h2>
+                        <p class="text-2xl mb-12 animate-float-delayed">Start being your true self while advancing your career!</p>
+                        <button class="bg-gradient-to-r from-red to-orange text-white text-xl font-bold py-4 px-8 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl animate-pulse">
+                            Get Started Now
+                        </button>
+                    </div>
+                    <div class="absolute top-0 left-0 w-full">
+                        <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#26217F" fill-opacity="1" d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,128C960,149,1056,171,1152,176C1248,181,1344,171,1392,165.3L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+                        </svg>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full transform rotate-180">
+                        <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#26217F" fill-opacity="1" d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,128C960,149,1056,171,1152,176C1248,181,1344,171,1392,165.3L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+                        </svg>
+                    </div>
+                </section>
 
-            <section class="py-20 animate-fadeIn">
-                <div class="container">
-                    <h2 class="text-4xl font-bold mb-8 text-center animate-pulse">Latest Updates</h2>
-                    <PostList posts=get_all_posts(published_filter) />
-                </div>
-            </section>
+                // Latest Updates Section with Overlapping Background
+                <section class="py-32 bg-purple-darker relative overflow-hidden">
+                    <div class="container mx-auto px-4 relative z-10">
+                        <h2 class="text-5xl font-bold mb-16 text-center animate-float">Latest Updates</h2>
+                        <PostList posts=get_all_posts(published_filter) />
+                    </div>
+                    <div class="absolute top-0 left-0 w-full h-1/2 bg-purple z-0 transform -skew-y-6"></div>
+                </section>
+            </main>
         </div>
     }
 }
