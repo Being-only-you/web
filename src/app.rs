@@ -2,7 +2,7 @@ use leptos::prelude::*;
 use leptos_meta::{provide_meta_context, Stylesheet, Title};
 use leptos_router::{
     components::{Route, Router, Routes},
-    StaticSegment, WildcardSegment, ParamSegment
+    StaticSegment, ParamSegment
 };
 
 use crate::pages::about::*;
@@ -15,37 +15,33 @@ use crate::components::header::*;
 
 #[component]
 pub fn App() -> impl IntoView {
-    // Provides context that manages stylesheets, titles, meta tags, etc.
     provide_meta_context();
 
     view! {
-        // injects a stylesheet into the document <head>
-        // id=leptos means cargo-leptos will hot-reload this stylesheet
         <Stylesheet id="leptos" href="/pkg/beu.css"/>
+        <Title text="Being You - Be Yourself, Uncensored"/>
 
-        // sets the document title
-        <Title text="Welcome to BEU"/>
-
-        // content for this welcome page
-        <Router>
-            <Header/>
-            <main>
-                <Routes fallback=move || "Page not found.">
-                    <Route path=StaticSegment("") view=Home/>
-                    <Route path=StaticSegment("about") view=About/>
-                    <Route path=StaticSegment("posts") view=Posts/>
-                    <Route path=(StaticSegment("posts"), ParamSegment("id")) view=Post/>
-                    <Route path=StaticSegment("tags") view=Tags/>
-                    <Route path=(StaticSegment("tags"), ParamSegment("id")) view=Tag/>
-                    <Route path=WildcardSegment("any") view=NotFound/>
-                </Routes>
-            </main>
-            <Footer/>
-        </Router>
+        <div class="flex flex-col min-h-screen bg-purple-darker text-white">
+            <Router>
+                <Header/>
+                <main class="flex-grow">
+                    <Routes fallback=move || {
+                        view! { <NotFound /> }
+                    }>
+                        <Route path=StaticSegment("") view=Home/>
+                        <Route path=StaticSegment("about") view=About/>
+                        <Route path=StaticSegment("posts") view=Posts/>
+                        <Route path=(StaticSegment("posts"), ParamSegment("id")) view=Post/>
+                        <Route path=StaticSegment("tags") view=Tags/>
+                        <Route path=(StaticSegment("tags"), ParamSegment("id")) view=Tag/>
+                    </Routes>
+                </main>
+                <Footer/>
+            </Router>
+        </div>
     }
 }
 
-/// 404 - Not Found
 #[component]
 fn NotFound() -> impl IntoView {
     // set an HTTP status code 404
@@ -63,6 +59,10 @@ fn NotFound() -> impl IntoView {
     }
 
     view! {
-        <h1>"Not Found"</h1>
+        <div class="container mx-auto px-4 py-16 text-center">
+            <h1 class="text-4xl font-bold mb-4 animate-bounce">404 - Page Not Found</h1>
+            <p class="text-xl mb-8 animate-fadeIn">Oops! The page you are looking for does not exist.</p>
+            <a href="/" class="btn btn-primary animate-pulse">Go back to home</a>
+        </div>
     }
 }
