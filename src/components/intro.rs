@@ -81,7 +81,7 @@ pub fn Intro() -> impl IntoView {
                         "Hi there, we are BEU 👋"
                     </h1>
                     <p class="mt-6 text-lg leading-8 text-gray-600">
-                        We are working on something speical
+                        "We are working on something special"
                     </p>
                     <SocialIcons/>
                 </div>

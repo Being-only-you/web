@@ -1,6 +1,6 @@
 use gray_matter::engine::YAML;
 use gray_matter::Matter;
-use pulldown_cmark::{html, Options, Parser, Tag, Event};
+use pulldown_cmark::{html, Event, HeadingLevel, Options, Parser, Tag};
 use serde::Deserialize;
 use std::collections::HashMap;
 
@@ -47,63 +47,38 @@ pub fn markdown_to_html(content: String) -> String {
     let parser = Parser::new_ext(&content, options).map(|event| {
         match &event {
             Event::Start(tag) => match tag {
-                Tag::HtmlBlock => println!("HtmlBlock"),
-                Tag::Heading {
-                    level,
-                    id,
-                    classes,
-                    attrs,
-                } => println!(
-                    "Heading heading_level: {} fragment identifier: {:?} classes: {:?} attrs: {:?}",
-                    level, id, classes, attrs
-                ),
-                Tag::Paragraph => println!("Paragraph"),
-                Tag::List(ordered_list_first_item_number) => println!(
-                    "List ordered_list_first_item_number: {:?}",
-                    ordered_list_first_item_number
-                ),
-                Tag::DefinitionList => println!("Definition list"),
-                Tag::DefinitionListTitle => println!("Definition title (definition list item)"),
-                Tag::DefinitionListDefinition => println!("Definition (definition list item)"),
-                Tag::Item => println!("Item (this is a list item)"),
-                Tag::Emphasis => println!("Emphasis (this is a span tag)"),
-                Tag::Strong => println!("Strong (this is a span tag)"),
-                Tag::Strikethrough => println!("Strikethrough (this is a span tag)"),
-                Tag::BlockQuote(kind) => println!("BlockQuote ({:?})", kind),
-                Tag::CodeBlock(code_block_kind) => {
-                    println!("CodeBlock code_block_kind: {:?}", code_block_kind)
+                Tag::HtmlBlock => Event::Html("<div class=\"prose prose-lg\">".into()),
+                Tag::Heading { level, .. } => {
+                    let heading_class = match level {
+                        HeadingLevel::H1 => "text-4xl font-bold mb-6 mt-8",
+                        HeadingLevel::H2 => "text-3xl font-semibold mb-5 mt-7",
+                        HeadingLevel::H3 => "text-2xl font-medium mb-4 mt-6",
+                        HeadingLevel::H4 => "text-xl font-medium mb-3 mt-5",
+                        HeadingLevel::H5 => "text-lg font-medium mb-2 mt-4",
+                        HeadingLevel::H6 => "text-base font-medium mb-2 mt-3",
+                    };
+                    Event::Html(format!("<h{} class=\"{}\">", *level as u8, heading_class).into())
                 }
-                Tag::Link {
-                    link_type,
-                    dest_url,
-                    title,
-                    id,
-                } => println!(
-                    "Link link_type: {:?} url: {} title: {} id: {}",
-                    link_type, dest_url, title, id
-                ),
-                Tag::Image {
-                    link_type,
-                    dest_url,
-                    title,
-                    id,
-                } => println!(
-                    "Image link_type: {:?} url: {} title: {} id: {}",
-                    link_type, dest_url, title, id
-                ),
-                Tag::Table(column_text_alignment_list) => println!(
-                    "Table column_text_alignment_list: {:?}",
-                    column_text_alignment_list
-                ),
-                Tag::TableHead => println!("TableHead (contains TableRow tags"),
-                Tag::TableRow => println!("TableRow (contains TableCell tags)"),
-                Tag::TableCell => println!("TableCell (contains inline tags)"),
-                Tag::FootnoteDefinition(label) => println!("FootnoteDefinition label: {}", label),
-                Tag::MetadataBlock(kind) => println!("MetadataBlock: {:?}", kind),
-            },
-            _ => (),
-        };
-        event
+                Tag::Paragraph => Event::Html("<p class=\"text-base leading-relaxed mb-4\">".into()),
+                Tag::List(Some(_)) => Event::Html("<ol class=\"list-decimal list-inside mb-4 pl-6\">".into()),
+                Tag::List(None) => Event::Html("<ul class=\"list-disc list-inside mb-4 pl-6\">".into()),
+                Tag::Item => Event::Html("<li class=\"mb-2\">".into()),
+                Tag::Emphasis => Event::Html("<em class=\"italic\">".into()),
+                Tag::Strong => Event::Html("<strong class=\"font-semibold\">".into()),
+                Tag::Strikethrough => Event::Html("<s class=\"line-through\">".into()),
+                Tag::BlockQuote(_) => Event::Html("<blockquote class=\"border-l-4 border-gray-300 pl-4 italic mb-4\">".into()),
+                Tag::CodeBlock(_) => Event::Html("<pre class=\"bg-gray-200 p-4 rounded-lg mb-4 overflow-x-auto\"><code>".into()),
+                Tag::Link { .. } => Event::Html("<a class=\"text-blue-600 hover:underline\">".into()),
+                Tag::Image { .. } => Event::Html("<img class=\"rounded-lg mb-4 max-w-full h-auto\" />".into()),  // Self-closing
+                Tag::Table(_) => Event::Html("<table class=\"table-auto w-full text-left\">".into()),
+                Tag::TableHead => Event::Html("<thead class=\"bg-gray-200\">".into()),
+                Tag::TableRow => Event::Html("<tr class=\"border-b\">".into()),
+                Tag::TableCell => Event::Html("<td class=\"px-4 py-2\">".into()),
+                Tag::FootnoteDefinition(_) => Event::Html("<div class=\"footnote-definition mb-4\">".into()),
+                _ => event,
+            }
+            _ => event,
+        }
     });
 
     let mut html = String::new();
@@ -146,19 +121,16 @@ pub fn get_all_posts(filter: StatusFilter) -> HashMap<String, PostData> {
         .filter(|(_id, post)| {
             let status = &post.metadata.status;
 
-            let include_filter = filter.include.as_ref()
-                .map_or(true, |include_list| include_list.contains(status));
-            
-            let exclude_filter = filter.exclude.as_ref()
-                .map_or(true, |exclude_list| !exclude_list.contains(status));
-            
-            let only_filter = filter.only.as_ref()
-                .map_or(true, |only_status| only_status == status);
+            // Simplify the filter checks for include, exclude, and only
+            let include_filter = filter.include.as_ref().map_or(true, |include_list| include_list.contains(status));
+            let exclude_filter = filter.exclude.as_ref().map_or(true, |exclude_list| !exclude_list.contains(status));
+            let only_filter = filter.only.as_ref().map_or(true, |only_status| *status == *only_status);
 
             include_filter && exclude_filter && only_filter
         })
         .collect()
 }
+
 
 
 pub fn get_all_tags() -> Vec<String> {

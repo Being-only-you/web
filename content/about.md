@@ -32,3 +32,14 @@ Join us in creating a social media landscape where you can truly be yourself, bo
 5. Introduction of freelance services and business management tools
 
 Be part of the revolution. Join Being You today!
+
+
+::: layout(grid)
+**Left Column**  
+Some content here.
+
+::: grid-item
+**Right Column**  
+More content here.
+:::
+:::

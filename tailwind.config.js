@@ -53,6 +53,9 @@ module.exports = {
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
       },
+      height: {
+        minusHeader: 'calc(100dvh - 170px)'
+      }
     },
   },
   plugins: [],

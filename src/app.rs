@@ -30,20 +30,22 @@ pub fn App() -> impl IntoView {
         </Script>
 
         <Router>
-            <main class="flex flex-col min-h-screen bg-purple-darker text-white">
+            <div class="flex flex-col min-h-screen bg-purple-darker text-white">
                 <Header/>
-                <Routes fallback=move || {
-                    view! { <NotFound /> }
-                }>
-                    <Route path=StaticSegment("") view=Home/>
-                    <Route path=StaticSegment("about") view=About/>
-                    <Route path=StaticSegment("posts") view=Posts/>
-                    <Route path=(StaticSegment("posts"), ParamSegment("id")) view=Post/>
-                    <Route path=StaticSegment("tags") view=Tags/>
-                    <Route path=(StaticSegment("tags"), ParamSegment("id")) view=Tag/>
-                </Routes>
+                <main class="flex-grow">
+                    <Routes fallback=move || {
+                        view! { <NotFound /> }
+                    }>
+                        <Route path=StaticSegment("") view=Home/>
+                        <Route path=StaticSegment("about") view=About/>
+                        <Route path=StaticSegment("posts") view=Posts/>
+                        <Route path=(StaticSegment("posts"), ParamSegment("id")) view=Post/>
+                        <Route path=StaticSegment("tags") view=Tags/>
+                        <Route path=(StaticSegment("tags"), ParamSegment("id")) view=Tag/>
+                    </Routes>
+                </main>
                 <Footer/>
-            </main>
+            </div>
         </Router>
     }
 }

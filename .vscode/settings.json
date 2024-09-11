@@ -6,6 +6,12 @@
             "server"
         ],
     },
-    "rust-analyzer.cargo.features": ["ssr"]
+    "rust-analyzer.cargo.features": ["ssr"],
+    "files.associations": {
+        "*.css": "tailwindcss"
+    },
+    "tailwindCSS.includeLanguages": {
+        "plaintext": "html"
+    }
 
 }

@@ -13,16 +13,15 @@ pub fn Header() -> impl IntoView {
             </div>
             <nav class="container mx-auto flex items-center justify-between py-4 px-6 relative z-10">
                 <a href="/" class="flex items-center space-x-2 transition-all duration-300 ease-in-out transform hover:scale-105">
-                    <div class="w-12 h-12 bg-orange rounded-full flex items-center justify-center overflow-hidden">
+                    <div class="flex items-center justify-center overflow-hidden">
                         <img
                             class="h-10 w-auto"
-                            src="/images/avatar.webp"
+                            src="/assets/beu-white-orange.svg"
                             alt="Being You Logo"
-                            width="40"
                             height="40"
                         />
                     </div>
-                    <span class="text-2xl font-bold text-orange transition-all duration-300 ease-in-out">Being You</span>
+                    <span class="sr-only">Being You</span>
                 </a>
                 <div class="flex space-x-6">
                     {nav_items
