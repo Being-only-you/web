@@ -5,9 +5,9 @@ use leptos::prelude::*;
 fn Tag(tag: String) -> impl IntoView {
     view! {
         <a href=format!("/tags/{tag}")>
-            <div class="flex flex-1 items-center justify-between truncate rounded-md border border-gray-200 bg-white">
-                <div class="flex-1 truncate px-4 py-2 text-sm">
-                    <code class="font-medium text-gray-900 hover:text-gray-600">{tag.clone()}</code>
+            <div class="flex flex-1 items-center justify-between truncate rounded-md border border-honest-200 bg-white hover:bg-honest-50 transition duration-150 ease-in-out">
+                <div class="flex-1 truncate px-4 py-2">
+                    <code class="fluid fluid-0 font-medium text-honest-900 hover:text-honest-500">{tag.clone()}</code>
                 </div>
             </div>
         </a>
@@ -23,7 +23,7 @@ pub fn TagList(tags: Vec<String>) -> impl IntoView {
                 key=|tag| tag.clone()
                 let:tag
             >
-                <li class="col-span-1 rounded-md shadow-sm">
+                <li class="col-span-1 rounded-md shadow-sm ">
                     <Tag tag=tag.clone()/>
                 </li>
             </For>

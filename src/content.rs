@@ -30,8 +30,7 @@ pub struct PostMetadata {
     pub tags: Vec<String>,
     #[serde(default)]
     pub title: String,
-    #[serde(default)]
-    pub cover: String,
+    pub cover: Option<String>,
 }
 
 #[derive(Clone, Debug)]
@@ -66,12 +65,12 @@ pub fn markdown_to_html(content: String) -> String {
                 Tag::Emphasis => Event::Html("<em class=\"italic\">".into()),
                 Tag::Strong => Event::Html("<strong class=\"font-semibold\">".into()),
                 Tag::Strikethrough => Event::Html("<s class=\"line-through\">".into()),
-                Tag::BlockQuote(_) => Event::Html("<blockquote class=\"border-l-4 border-gray-300 pl-4 italic mb-4\">".into()),
-                Tag::CodeBlock(_) => Event::Html("<pre class=\"bg-gray-200 p-4 rounded-lg mb-4 overflow-x-auto\"><code>".into()),
-                Tag::Link { .. } => Event::Html("<a class=\"text-blue-600 hover:underline\">".into()),
+                Tag::BlockQuote(_) => Event::Html("<blockquote class=\"border-l-4 border-honest-300 pl-4 italic mb-4\">".into()),
+                Tag::CodeBlock(_) => Event::Html("<pre class=\"bg-honest-200 p-4 rounded-lg mb-4 overflow-x-auto\"><code>".into()),
+                Tag::Link { .. } => Event::Html("<a class=\"text-social-500 hover:underline\">".into()),
                 Tag::Image { .. } => Event::Html("<img class=\"rounded-lg mb-4 max-w-full h-auto\" />".into()),  // Self-closing
                 Tag::Table(_) => Event::Html("<table class=\"table-auto w-full text-left\">".into()),
-                Tag::TableHead => Event::Html("<thead class=\"bg-gray-200\">".into()),
+                Tag::TableHead => Event::Html("<thead class=\"bg-honest-200\">".into()),
                 Tag::TableRow => Event::Html("<tr class=\"border-b\">".into()),
                 Tag::TableCell => Event::Html("<td class=\"px-4 py-2\">".into()),
                 Tag::FootnoteDefinition(_) => Event::Html("<div class=\"footnote-definition mb-4\">".into()),
@@ -130,8 +129,6 @@ pub fn get_all_posts(filter: StatusFilter) -> HashMap<String, PostData> {
         })
         .collect()
 }
-
-
 
 pub fn get_all_tags() -> Vec<String> {
     let mut tags: Vec<String> = Vec::new();

@@ -30,7 +30,7 @@ pub fn App() -> impl IntoView {
         </Script>
 
         <Router>
-            <div class="flex flex-col min-h-screen bg-purple-darker text-white">
+            <div class="flex flex-col min-h-screen bg-power-900 text-white">
                 <Header/>
                 <main class="flex-grow">
                     <Routes fallback=move || {
@@ -60,9 +60,9 @@ fn NotFound() -> impl IntoView {
 
     view! {
         <div class="container mx-auto px-4 py-16 text-center">
-            <h1 class="text-4xl font-bold mb-4 animate-float">"404 - Page Not Found"</h1>
-            <p class="text-xl mb-8 animate-float-delayed">"Oops! The page you're looking for doesn't exist."</p>
-            <a href="/" class="btn btn-primary animate-pulse">"Go back to home"</a>
+            <h1 class="fluid fluid-4 font-bold mb-4 animate-float">"404 - Page Not Found"</h1>
+            <p class="fluid fluid-1 mb-8 animate-float-delayed">"Oops! The page you're looking for doesn't exist."</p>
+            <a href="/" class="btn btn-primary animate-pulse fluid fluid-0">"Go back to home"</a>
         </div>
     }
 }

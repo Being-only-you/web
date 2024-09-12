@@ -1,8 +1,6 @@
 pub mod footer;
 pub mod header;
-pub mod intro;
 pub mod post_content;
 pub mod post_list;
 pub mod tag_list;
-pub mod globe;
-pub mod animated_timeline;
+pub mod curved_divider;
