@@ -88,7 +88,7 @@ fn FeaturesSection() -> impl IntoView {
 fn BenefitsSection() -> impl IntoView {
     view! {
         <section class="py-20 w-full bg-white text-power-900 relative">
-            <div class="absolute inset-0 bg-[url('/assets/images/connecting.svg')] bg-cover bg-center opacity-5 z-0"></div>
+            
             <div class="container px-4 mx-auto relative z-10">
                 <h2 class="fluid fluid-4 font-bold mb-12 text-center">Our Benefits</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -129,6 +129,7 @@ fn BenefitsSection() -> impl IntoView {
 fn DevelopmentLogSection() -> impl IntoView {
     view! {
         <section class="py-32 relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('/assets/images/connecting.svg')] bg-cover bg-center opacity-5 z-0"></div>
             <div class="container mx-auto px-4 relative z-10">
                 <h2 class="fluid fluid-4 font-bold mb-8 text-center animate-float">"Development Log"</h2>
                 <p class="fluid fluid-1 text-center mb-8 animate-float-delayed">
