@@ -26,8 +26,8 @@ COPY --from=builder /work/target/release/beu /app/
 COPY --from=builder /work/target/site /app/site
 COPY --from=builder /work/Cargo.toml /app/
 
-
-EXPOSE $PORT=3000
+ENV PORT=3000
+EXPOSE $PORT
 ENV LEPTOS_SITE_ROOT=./site
 
 
