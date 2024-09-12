@@ -16,9 +16,11 @@ WORKDIR /work
 COPY . .
 
 RUN npm install
+
 RUN rustup update && \
     rustup target add wasm32-unknown-unknown && \
-    cargo install --locked
+    cargo install --locked  cargo-leptos
+
 RUN cargo leptos build --release -vv
 
 
