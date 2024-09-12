@@ -25,7 +25,7 @@ fn TagLabel(tag: String) -> impl IntoView {
     let href = format!("/tags/{}", tag.clone());
     view! {
         <a
-            class="inline-flex items-center gap-x-1.5 rounded-full px-2 py-1 fluid fluid--1 font-medium text-honest-900 ring-1 ring-inset ring-honest-200"
+            class="inline-flex items-center gap-x-1.5 rounded-full px-2 py-1 fluid fluid--1 font-medium text-honest-900 bg-white ring-1 ring-inset ring-honest-200"
             href=href
         >
             {tag}
@@ -59,14 +59,14 @@ fn PostPreview(id: String, post: PostData) -> impl IntoView {
                     </For>
                 </div>
                 <div class="group relative max-w-xl">
-                    <h2 class="mt-3 fluid fluid-2 font-semibold leading-6 text-honest-100 group-hover:text-honest-500">
+                    <h2 class="mt-3 fluid fluid-2 font-semibold text-honest-100 group-hover:text-honest-500">
                         <a href=format!("/posts/{}", id.clone())>
                             <span class="absolute inset-0"></span>
                             {post.metadata.title}
                         </a>
                     </h2>
                     <div
-                        class="prose mt-5 fluid fluid-0 leading-6 text-honest-500"
+                        class="prose mt-5 fluid fluid-0 text-honest-500"
                         inner_html=post.metadata.summary
                     ></div>
                 </div>

@@ -10,7 +10,7 @@ use urlencoding::decode;
 pub fn Tags() -> impl IntoView {
     view! {
         <div class="container mx-auto px-4">
-            <h1 class="mt-2 py-20 text-center fluid fluid-4 font-bold tracking-tight rounded-lg rounded-tr-none bg-honest-100 text-power-500">
+            <h1 class="mt-2 py-20 text-center fluid fluid-4 font-bold tracking-tight text-power-500">
                 "Tags"
             </h1>
             <TagList tags=get_all_tags()/>
