@@ -1,10 +1,6 @@
 use leptos::*;
 use leptos::prelude::*;
-
-use crate::components::post_list::*;
 use crate::components::globe::Globe;
-use crate::components::animated_timeline::AnimatedTimeline;
-use crate::content::{get_all_posts, PostStatus, StatusFilter};
 
 #[component]
 fn CurvedDivider(color: &'static str, inverted: bool) -> impl IntoView {
@@ -22,12 +18,6 @@ fn CurvedDivider(color: &'static str, inverted: bool) -> impl IntoView {
 
 #[component]
 pub fn Home() -> impl IntoView {
-    let published_filter = StatusFilter {
-        only: Some(PostStatus::Published),
-        exclude: None,
-        include: None
-    };
-
     view! {
         <div class="min-h-screen bg-gradient-to-b from-purple-darker to-purple-dark text-white overflow-hidden">
             // Dynamic Header with Interactive Globe
@@ -35,7 +25,11 @@ pub fn Home() -> impl IntoView {
                 <Globe/>
                 <div class="relative z-10 text-center">
                     <h1 class="text-7xl font-bold mb-4 animate-float">"We are"</h1>
-                    <h2 class="text-8xl font-bold mb-4 animate-float-delayed">"Being you"</h2>
+                    <img
+                            class="h-20 w-auto"
+                            src="/assets/being-you-colour.svg"
+                            alt="Being You Logo"
+                        />
                     <p class="text-3xl font-light text-orange animate-float">"The social way to work"</p>
                 </div>
             </section>
@@ -64,32 +58,17 @@ pub fn Home() -> impl IntoView {
                                 "Content creator revenue sharing"
                             </div>
                         </div>
-                        <form class="flex flex-col md:flex-row gap-4 max-w-md mx-auto mt-16">
-                            <input type="email" placeholder="Email address" class="flex-grow p-2 rounded-full bg-purple text-white" />
-                            <button type="submit" class="bg-gradient-to-r from-red to-orange text-white font-bold py-2 px-8 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl animate-pulse">
-                                "Pre-register"
-                            </button>
-                        </form>
                     </div>
                 </section>
 
                 <CurvedDivider color="#fff" inverted=true />
-
-                // Roadmap Section with Timeline
-                <section class="py-32 bg-purple-darker relative overflow-hidden">
-                    <div class="container mx-auto px-4 relative z-10">
-                        <h2 class="text-5xl font-bold mb-16 text-center animate-float">"Road Map"</h2>
-                        <AnimatedTimeline />
-                    </div>
-                </section>
-
-                <CurvedDivider color="#FFFFFF" inverted=false />
+                <CurvedDivider color="#26217F" inverted=false />
 
                 // Features Section with Overlapping Cards
-                <section class="py-32 bg-white text-purple relative overflow-hidden">
+                <section class="py-10  bg-purple-darker  text-white relative overflow-hidden">
                     <div class="container mx-auto px-4 relative z-10">
                         <h2 class="text-5xl font-bold mb-16 text-center animate-float">"Our Unique Features"</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 -mt-16">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                             <div class="bg-gradient-to-br from-purple-light to-purple p-8 rounded-3xl shadow-xl transition-all duration-500 ease-in-out transform hover:scale-105 hover:-rotate-2 animate-float">
                                 <h3 class="text-3xl font-bold mb-4 text-orange">"Uncensored Social Networking"</h3>
                                 <p class="text-xl">"Express yourself freely without fear of AI-driven censorship. Your voice matters, and we're here to amplify it."</p>
@@ -113,47 +92,17 @@ pub fn Home() -> impl IntoView {
                 <CurvedDivider color="#26217F" inverted=true />
 
                 // Development Log Section
-                <section class="py-32 bg-purple-darker relative overflow-hidden">
+                <section class="py-32 bg-white relative overflow-hidden">
                     <div class="container mx-auto px-4 relative z-10">
                         <h2 class="text-5xl font-bold mb-8 text-center animate-float">"Development Log"</h2>
                         <p class="text-center mb-8 animate-float-delayed">
                             "This is where we will write updates on the development of the app. We will aim to update this weekly, however we can't guarantee this will always be the case. If you wish to request an update on the development, please email us."
                         </p>
-                        <p class="text-center mb-8 animate-float">
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fringilla blandit quam quis scelerisque. Donec efficitur lorem in metus. Nulla semper convallis tortor. Maecenas tempor nisi sed risus porta feugiat. Cras nec orci lectus, suscipit quam eu, commodo urna. Cras condimentum et arcu eu sollicitudin. Ut et nulla id nisi aliquam tincidunt."
-                        </p>
-                        <div class="text-center">
-                            <button class="bg-gradient-to-r from-red to-orange text-white text-xl font-bold py-4 px-8 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl animate-pulse">
-                                "Learn More"
-                            </button>
-                        </div>
                     </div>
-                </section>
-
-                <CurvedDivider color="#FFFFFF" inverted=false />
-
-                // Open Source Tech Section
-                <section class="py-32 bg-white text-purple relative overflow-hidden">
-                    <div class="container mx-auto px-4">
-                        <h2 class="text-5xl font-bold mb-8 text-center animate-float">"Open Source Tech"</h2>
-                        <p class="text-center mb-8 animate-float-delayed">"We use a variety of open source technologies to create our platform. Some of these are:"</p>
-                        <div class="flex flex-wrap justify-center gap-8 animate-float">
-                            <img src="/api/placeholder/80/80" alt="Angular logo" class="h-16 transition-transform duration-300 hover:scale-110" />
-                            <img src="/api/placeholder/80/80" alt="Supabase logo" class="h-16 transition-transform duration-300 hover:scale-110" />
-                            <img src="/api/placeholder/80/80" alt="HTML5 logo" class="h-16 transition-transform duration-300 hover:scale-110" />
-                            <img src="/api/placeholder/80/80" alt="CSS3 logo" class="h-16 transition-transform duration-300 hover:scale-110" />
-                            <img src="/api/placeholder/80/80" alt="JavaScript logo" class="h-16 transition-transform duration-300 hover:scale-110" />
-                        </div>
-                    </div>
-                </section>
-
-                <CurvedDivider color="#26217F" inverted=true />
-
-                // Latest Updates Section
-                <section class="py-32 bg-purple-darker relative overflow-hidden">
-                    <div class="container mx-auto px-4 relative z-10">
-                        <h2 class="text-5xl font-bold mb-16 text-center animate-float">"Latest Updates"</h2>
-                        <PostList posts=get_all_posts(published_filter) />
+                    <div class="text-center">
+                        <a href="/tags/dev" class="bg-gradient-to-r from-red to-orange text-white text-xl font-bold py-4 px-8 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl animate-pulse">
+                            "Learn More"
+                        </a>
                     </div>
                 </section>
             </main>

@@ -34,8 +34,8 @@ module.exports = {
         },
       },
       animation: {
-        float: 'float 6s ease-in-out infinite',
-        'float-delayed': 'float 6s ease-in-out 2s infinite',
+        float: 'float 6s ease-in-out',
+        'float-delayed': 'float 6s ease-in-out 2s',
         fadeIn: 'fadeIn 1s ease-in',
         slideUp: 'slideUp 0.5s ease-out',
       },
