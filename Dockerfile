@@ -1,6 +1,8 @@
 # Get started with a build env with Rust nightly
 FROM rustlang/rust:nightly-alpine as builder
 
+ENV LEPTOS_SITE_ADDR="0.0.0.0:3000"
+
 RUN apk update && \
     apk add --no-cache bash curl npm libc-dev binaryen
 
@@ -24,7 +26,9 @@ COPY --from=builder /work/target/release/beu /app/
 COPY --from=builder /work/target/site /app/site
 COPY --from=builder /work/Cargo.toml /app/
 
-EXPOSE $PORT
+
+EXPOSE $PORT=3000
 ENV LEPTOS_SITE_ROOT=./site
+
 
 CMD ["/app/beu"]
