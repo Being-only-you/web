@@ -8,8 +8,8 @@ resolver = "2"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-actix-identity = { version = "0.7", optional = true }
-actix-session = { version = "0.10", optional = true, features = ["cookie-session"] }
+actix-identity = { version = "0.7", optional = true  }
+actix-session = { version = "0.10", features = ["cookie-session"], optional = true }
 actix-files = { version = "0.6", optional = true }
 actix-web = { version = "4", optional = true, features = ["macros"] }
 actix-cors = { version = "0.7", optional = true }
@@ -27,10 +27,15 @@ chrono = { version = "0.4", features = ["serde"] }
 include_dir = "0.7"
 pulldown-cmark = "0.12.1"
 gray_matter = "0.2"
-surrealdb = { version = "1.5.4", optional = true, features = ["kv-mem"] }
+surrealdb = { version = "1.5.4", features = ["kv-mem"], optional = true }
 surrealdb-migrations = { version = "1.5.0", optional = true }
-regex = "1.8.1"
 urlencoding = "2.1.2"
+thiserror = { version = "1.0.63", optional = true }
+dotenvy = { version = "0.15.7", optional = true }
+once_cell = { version = "1.19.0", optional = true }
+rand = { version = "0.8.5", optional = true }
+serde_json = { version = "1.0.128", optional = true }
+anyhow = { version = "1.0.88", optional = true }
 
 [features]
 csr = ["leptos/csr"]
@@ -38,15 +43,26 @@ hydrate = ["leptos/hydrate"]
 ssr = [
   "dep:actix-files",
   "dep:actix-web",
+  "dep:actix-cors",
   "dep:leptos_actix",
   "leptos/ssr",
   "leptos_meta/ssr",
   "leptos_router/ssr",
+  "dep:surrealdb",
+  "dep:surrealdb-migrations",
+  "dep:actix-identity",
+  "dep:actix-session",
+  "dep:actix-session",
+  "dep:thiserror",
+  "dep:dotenvy",
+  "dep:once_cell",
+  "dep:rand",
+  "dep:serde_json",
+  "dep:anyhow",
 ]
 
 [package.metadata.cargo-all-features]
 skip_feature_sets = [["csr", "ssr"], ["csr", "hydrate"], ["ssr", "hydrate"]]
-
 
 # Defines a size-optimized profile for the WASM bundle in release mode
 [profile.wasm-release]

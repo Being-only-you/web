@@ -22,9 +22,7 @@ DEFINE FIELD keywords ON job_posting TYPE array;
 DEFINE FIELD status ON job_posting TYPE string ASSERT $value INSIDE ['draft', 'published', 'closed'];
 DEFINE FIELD created_at ON job_posting TYPE datetime DEFAULT time::now();
 DEFINE FIELD updated_at ON job_posting TYPE datetime DEFAULT time::now();
-DEFINE FIELD similarity_vector ON job_posting TYPE vector(1536);
 
 DEFINE INDEX business_title ON job_posting FIELDS business, title;
 DEFINE INDEX job_posting_keywords ON job_posting FIELDS keywords SEARCH ANALYZER ascii BM25;
 DEFINE INDEX job_posting_skills ON job_posting FIELDS skills;
-DEFINE INDEX job_posting_similarity ON job_posting FIELDS similarity_vector VECTOR 1536 COSINE DIST;

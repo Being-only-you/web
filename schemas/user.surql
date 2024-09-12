@@ -5,7 +5,7 @@ DEFINE TABLE user SCHEMAFULL
     FOR delete WHERE ($scope = 'user' && id = $auth.id) OR $scope = 'admin' 
     FOR create WHERE $scope = 'admin';
 
-DEFINE FIELD email ON TABLE user TYPE string ASSERT is::email($value);
+DEFINE FIELD email ON TABLE user TYPE string ASSERT string::is::email($value);
 DEFINE FIELD username ON TABLE user TYPE string ASSERT $value = /^[a-z0-9](?:[a-z0-9._-]{1,18}[a-z0-9.])$/;
 DEFINE FIELD password ON TABLE user TYPE string
   PERMISSIONS 

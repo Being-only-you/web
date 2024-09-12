@@ -4,8 +4,10 @@ services:
   surrealdb:
     image: surrealdb/surrealdb:latest
     restart: "no"
-    command: start --user ${SURREALDB_USERNAME:-root} --pass ${SURREALDB_PASSWORD:-root} file:/data/database.db
+    command:
+      - start
+      - --log=trace
+      - --user=${SURREAL_USERNAME:-root} #default user
+      - --pass=${SURREAL_PASSWORD:-root} #default password
     ports:
-      - 127.0.0.1:${SURREALDB_PORT:-8000}:8000
-    volumes:
-      - ./surrealdb_data:/data
+      - 127.0.0.1:${SURREAL_PORT:-8000}:8000
