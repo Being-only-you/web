@@ -6,7 +6,6 @@ RUN apk update && \
     # protoc openssl-dev protobuf-dev gcc git g++ libc-dev make binaryen
 
 RUN npm install -g sass
-RUN npm install -g tailwindcss
 
 RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/leptos-rs/cargo-leptos/releases/download/0.2.5/cargo-leptos-installer.sh | sh
 
@@ -16,6 +15,7 @@ RUN rustup target add wasm32-unknown-unknown
 WORKDIR /work
 COPY . .
 
+RUN npm install
 RUN cargo leptos build --release -vv
 
 FROM rustlang/rust:nightly-alpine as runner
