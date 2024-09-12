@@ -5,7 +5,8 @@ use crate::components::curved_divider::CurvedDivider;
 #[component]
 fn Hero() -> impl IntoView {
     view! {
-        <section class="min-h-minusHeader container mx-auto flex flex-col justify-center items-center py-12 px-6 overflow-hidden">
+        <section class="min-h-minusHeader container mx-auto flex flex-col justify-center items-center py-12 px-6 overflow-hidden relative">
+            <div class="absolute inset-0 bg-[url('/assets/images/every-you.png')] bg-cover bg-center opacity-10 z-0"></div>
             <div class="relative z-10 text-center flex flex-col items-center max-w-4xl">
                 <h1 class="fluid fluid-5 font-bold mb-4 animate-float">"We are"</h1>
                 <img
@@ -86,10 +87,11 @@ fn FeaturesSection() -> impl IntoView {
 #[component]
 fn BenefitsSection() -> impl IntoView {
     view! {
-        <section class="py-20 w-full bg-white text-power-900">
-            <div class="container px-4 mx-auto">
+        <section class="py-20 w-full bg-white text-power-900 relative">
+            <div class="absolute inset-0 bg-[url('/assets/images/connecting.svg')] bg-cover bg-center opacity-5 z-0"></div>
+            <div class="container px-4 mx-auto relative z-10">
                 <h2 class="fluid fluid-4 font-bold mb-12 text-center">Our Benefits</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="flex flex-col items-center text-center p-6 bg-honest-200 rounded-lg rounded-tr-none border border-power-100 shadow-md transition-all duration-300 ease-in-out hover:animate-expand focus:animate-expand active:animate-expand">
                         <span class="flex w-16 h-16 items-center justify-center mb-4">
                             <img class="w-full" src="/assets/iconography/light-mode/expression.svg" alt="Expression" />

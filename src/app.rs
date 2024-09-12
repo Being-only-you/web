@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use leptos_meta::{provide_meta_context, Stylesheet, Title, Script};
+use leptos_meta::{provide_meta_context, Stylesheet, Title, Link, Meta, Script};
 use leptos_router::{
     components::{Route, Router, Routes},
     StaticSegment, ParamSegment
@@ -19,7 +19,20 @@ pub fn App() -> impl IntoView {
 
     view! {
         <Stylesheet id="leptos" href="/pkg/beu.css"/>
-        <Title text="Being You - Be Yourself, Uncensored"/>
+        <Title text="Being You - Be Yourself, Uncensored | Social Networking Platform"/>
+        <Meta name="description" content="Being You is a revolutionary platform combining uncensored social networking with professional growth opportunities. Express yourself freely and advance your career."/>
+        <Meta name="keywords" content="social network, professional networking, free speech, privacy, career development"/>
+        <Meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <Meta property="og:title" content="Being You - Be Yourself, Uncensored"/>
+        <Meta property="og:description" content="Being You is a revolutionary platform combining uncensored social networking with professional growth opportunities. Express yourself freely and advance your career."/>
+        <Meta property="og:type" content="website"/>
+        <Meta property="og:url" content="https://beingyou.uk"/>
+        <Meta property="og:image" content="/assets/logo/being-you-colour.svg"/>
+        <Meta name="twitter:card" content="summary_large_image"/>
+        <Meta name="twitter:title" content="Being You - Be Yourself, Uncensored"/>
+        <Meta name="twitter:description" content="Being You is a revolutionary platform combining uncensored social networking with professional growth opportunities. Express yourself freely and advance your career."/>
+        <Meta name="twitter:image" content="/assets/logo/being-you-colour.svg"/>
+        <Link rel="canonical" href="https://beingyou.uk"/>
         <Script type_="importmap">
             "{
                 imports: {
