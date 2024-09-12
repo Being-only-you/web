@@ -17,9 +17,6 @@ COPY . .
 
 RUN npm install
 
-RUN rustup update && \
-    rustup target add wasm32-unknown-unknown
-
 RUN cargo leptos build --release -vv
 
 
@@ -27,11 +24,11 @@ FROM rustlang/rust:nightly-alpine as runner
 
 WORKDIR /app
 
-COPY --from=builder /work/target/release/leptos-railway /app/
+COPY --from=builder /work/target/release/beu /app/
 COPY --from=builder /work/target/site /app/site
 COPY --from=builder /work/Cargo.toml /app/
 
 EXPOSE $PORT
 ENV LEPTOS_SITE_ROOT=./site
 
-CMD ["/app/leptos-railway"]
+CMD ["/app/beu"]

@@ -1,72 +1,100 @@
-<picture>
-    <source srcset="https://raw.githubusercontent.com/leptos-rs/leptos/main/docs/logos/Leptos_logo_Solid_White.svg" media="(prefers-color-scheme: dark)">
-    <img src="https://raw.githubusercontent.com/leptos-rs/leptos/main/docs/logos/Leptos_logo_RGB.svg" alt="Leptos Logo">
-</picture>
+# Being You (BeU)
 
-# Leptos Starter Template
+![BeU Logo](/assets/logo/being-you-colour.svg)
 
-This is a template for use with the [Leptos](https://github.com/leptos-rs/leptos) web framework and the [cargo-leptos](https://github.com/akesson/cargo-leptos) tool.
+Being You (BeU) is a revolutionary platform that combines uncensored social networking with professional growth opportunities. Our mission is to provide a space where you can express yourself freely and advance your career, all in one place.
 
-## Creating your template repo
+## Table of Contents
 
-If you don't have `cargo-leptos` installed you can install it with
+- [Being You (BeU)](#being-you-beu)
+  - [Table of Contents](#table-of-contents)
+  - [About the Project](#about-the-project)
+    - [Key Principles](#key-principles)
+  - [Features](#features)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+  - [Usage](#usage)
+  - [Development](#development)
+  - [Contributing](#contributing)
+  - [License](#license)
 
-`cargo install cargo-leptos --locked`
+## About the Project
 
-Then run
+BeU is designed to be "The social way to work". We're building a free speech and privacy-focused platform that connects people on both social and professional levels. Our goal is to provide you with a tool for professional development while offering an ad-free social networking experience.
 
-`cargo leptos new --git leptos-rs/start`
+### Key Principles
 
-to generate a new project template (you will be prompted to enter a project name).
+- Freedom of expression (within legal boundaries)
+- Privacy protection
+- Professional growth
+- Ad-free personal profiles
 
-`cd {projectname}`
+## Features
 
-to go to your newly created project.
+- **Uncensored Expression**: Express yourself freely without fear of AI-driven censorship.
+- **Professional Branding**: Showcase your skills, apply for jobs, and connect with clients.
+- **Connecting People**: Build meaningful relationships with friends, family, and professional contacts.
+- **Business Tools**: Access job boards, freelancing opportunities, and business management tools.
+- **Zero Ads on Personal Profiles**: Enjoy an ad-free experience on your personal profile.
+- **Promoted Job Listings**: Find relevant job opportunities on professional profiles.
+- **Content Creator Revenue Sharing**: Benefit from your content creation efforts.
 
-Of course, you should explore around the project structure, but the best place to start with your application code is in `src/app.rs`.
+## Getting Started
 
-## Running your project
+### Prerequisites
 
-`cargo leptos watch`  
-By default, you can access your local project at `http://localhost:3000`
+- Rust (nightly)
+- Node.js and npm
+- Cargo and cargo-leptos
 
-## Installing Additional Tools
+### Installation
 
-By default, `cargo-leptos` uses `nightly` Rust, `cargo-generate`, and `sass`. If you run into any trouble, you may need to install one or more of these tools.
+1. Clone the repository:
 
-1. `rustup toolchain install nightly --allow-downgrade` - make sure you have Rust nightly
-2. `rustup target add wasm32-unknown-unknown` - add the ability to compile Rust to WebAssembly
-3. `cargo install cargo-generate` - install `cargo-generate` binary (should be installed automatically in future)
-4. `npm install -g sass` - install `dart-sass` (should be optional in future)
+   ```bash
+   git clone https://github.com/Being-only-you/web.git
+   cd being-you
+   ```
 
-## Executing a Server on a Remote Machine Without the Toolchain
-After running a `cargo leptos build --release` the minimum files needed are:
+2. Install dependencies:
 
-1. The server binary located in `target/server/release`
-2. The `site` directory and all files within located in `target/site`
+   ```bash
+   cargo install cargo-leptos
+   npm install
+   ```
 
-Copy these files to your remote server. The directory structure should be:
-```text
-leptos_start
-site/
+3. Set up environment variables (copy `.env.example` to `.env` and fill in the necessary values)
+
+## Usage
+
+To run the project locally:
+
+```bash
+cargo leptos watch
 ```
-Set the following environment variables (updating for your project as needed):
-```sh
-export LEPTOS_OUTPUT_NAME="leptos_start"
-export LEPTOS_SITE_ROOT="site"
-export LEPTOS_SITE_PKG_DIR="pkg"
-export LEPTOS_SITE_ADDR="127.0.0.1:3000"
-export LEPTOS_RELOAD_PORT="3001"
-```
-Finally, run the server binary.
 
-## Notes about CSR and Trunk:
-Although it is not recommended, you can also run your project without server integration using the feature `csr` and `trunk serve`:
+This will start the development server. By default, you can access your local project at `http://localhost:3000`.
 
-`trunk serve --open --features csr`
+## Development
 
-This may be useful for integrating external tools which require a static site, e.g. `tauri`.
+BeU is built using the Leptos web framework. The main application logic can be found in `src/app.rs`. Other important directories include:
 
-## Licensing
+- `src/components/`: Reusable UI components
+- `src/pages/`: Individual page components
+- `assets/`: Static assets like images and fonts
+- `style/`: CSS and SCSS files
 
-This template itself is released under the Unlicense. You should replace the LICENSE for your own application with an appropriate license if you plan to release it publicly.
+To contribute to the project, please refer to our [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
+## Contributing
+
+We welcome contributions to the BeU project! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) file for details on how to get involved.
+
+## License
+
+This project is released into the public domain under the [Unlicense](LICENSE).
+
+This is free and unencumbered software released into the public domain. Anyone is free to copy, modify, publish, use, compile, sell, or distribute this software, either in source code form or as a compiled binary, for any purpose, commercial or non-commercial, and by any means.
+
+For more information, please refer to <https://unlicense.org>
